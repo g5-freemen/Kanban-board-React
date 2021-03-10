@@ -1,5 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import uuid from 'react-uuid';
+
+import {CardsContext} from '../App';
 
 export default function AddCardModal() {
     const   [ isOpen, setIsOpen ] = useState(false),
@@ -8,7 +10,11 @@ export default function AddCardModal() {
             [ cardDesc, setCardDesc ] = useState(''),
             [ user, setUser ] = useState('');
 
-    const getDate = () => new Date(Date.now()).toLocaleDateString();
+    const { cards, setCards } = useContext(CardsContext);
+
+    console.log(cards);
+    // console.log(setCards)
+
     
     const getUsers = () => fetch(`${'https://jsonplaceholder.typicode.com/users'}`)
         .then(response => response.json())
@@ -16,8 +22,12 @@ export default function AddCardModal() {
 
     function submitHandler(event) {
         event.preventDefault();
+        const getDate = () => new Date(Date.now()).toLocaleDateString();
         const card = { cardTitle, cardDesc, user, date: getDate(), id: uuid(), column: 0 };
         alert(JSON.stringify(card));
+        setCards(prev=>prev.concat(card));
+        console.log(cards);
+        localStorage.setItem('cards', JSON.stringify(cards));
         setCardTitle('');
         setCardDesc('');
         setUser('');
@@ -40,8 +50,7 @@ export default function AddCardModal() {
                             placeholder="Enter Card Title"
                             maxLength="27"
                             value={cardTitle}
-                            onChange={(ev)=>{setCardTitle(ev.target.value); console.log(ev.target.value)}
-                                }
+                            onChange={ev=>setCardTitle(ev.target.value)}
                             required />
                     </label>
                     <button className="card-form--close-btn" onClick={()=>setIsOpen(false)} />
@@ -52,11 +61,11 @@ export default function AddCardModal() {
                             cols="40"
                             placeholder="Enter Card Description"
                             value={cardDesc}
-                            onChange={(ev)=>{setCardDesc(ev.target.value)}}
+                            onChange={ev=>setCardDesc(ev.target.value)}
                             required />
                 </label>
                 <label>User *
-                <select name="userName" id="usersList" value={user} onChange={(ev)=>setUser(ev.target.value)} required>
+                <select name="userName" id="usersList" value={user} onChange={ev=>setUser(ev.target.value)} required>
                     <option key={uuid()} value="">Select user</option>
                     {usersList && usersList.map(item => <option key={uuid()} value={item}>{item}</option> )}                    
                 </select>
