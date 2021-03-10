@@ -1,0 +1,37 @@
+.board--delBtn-tooltip {
+    position: absolute;
+    visibility: hidden;
+    background-color: $secondBGColor;
+    color: $whiteBGColor;
+    text-align: center;
+    padding: 0.3rem;
+    border-radius: $borderRadiusSmall;
+    z-index: 1;
+    font-size: 0.7rem;
+}
+
+.show {
+    visibility: visible;
+}
+
+.card--move-btn, .card--delete-btn {
+    transition: all 0.3s;
+}
+
+.card--move-btn:hover, .card--delete-btn:hover {
+    transform: scale(1.4);
+}
+
+.card--post-comment:hover, .card__add-comment--button:hover,
+.card-form--save-btn:hover, .board__add-card-btn:hover,
+#deleteInProgressCards:hover, #notDeleteInProgressCards:hover {
+    background: $smallItemsColor;
+}
+
+.saveImg:hover {
+    opacity: 1;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.7);
+}

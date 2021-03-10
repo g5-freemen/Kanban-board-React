@@ -1,0 +1,10 @@
+.footer{
+    @include flexible(center, center, row, wrap);
+    @include noBorderCursor;
+    margin: $smallPadding/2 0;
+    font-size: $smallPadding*1.5;
+    &__link{
+      color: grey;
+      text-decoration: none;
+    }
+}

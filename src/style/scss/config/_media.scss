@@ -1,0 +1,82 @@
+@media screen and (orientation: landscape) and (min-width: 1000px)  {
+    #slider, .slider-dots, .prev, .next {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1000px)  {
+    #slider, .slider-dots, .prev, .next {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 281px) {
+    .card-form {
+        transform: scale(0.85);
+    }
+}
+
+@media screen and (min-width: 539px) {
+
+    .board__to-do--container, .board__in-progress--container {
+        margin-right: $bigPadding;
+    }
+
+    .modal-window--container {
+        flex: 0.62;
+    }
+
+    .card--edit-img {
+        width: $bigPadding *2;
+        height: $bigPadding *2;
+        margin-right: $smallPadding/2;
+        background-size: $normalBtnSize;
+    }
+
+    .card--desc, .card--edit-desc {
+        max-width: 16rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (min-width: 720px) {
+    .board {
+        width: 66%;
+    }
+
+    .modal-window--container {
+        flex: 0.5;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+
+    .board {
+        flex: auto;
+        width: auto;
+    }
+
+    .modal-window--container {
+        flex: 0.264;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .board {
+        width: 75%;
+    }
+
+    .modal-window--container {
+        flex: 0.17;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    .board {
+        width: 66%;
+    }
+
+    .modal-window--container {
+        flex: 0.1;
+    }
+}
