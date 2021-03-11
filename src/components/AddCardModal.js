@@ -1,40 +1,32 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import uuid from 'react-uuid';
 
 import {CardsContext} from '../App';
 
 export default function AddCardModal() {
     const   [ isOpen, setIsOpen ] = useState(false),
-            [ usersList, setUsersList ] = useState([]),
             [ cardTitle, setCardTitle ] = useState(''),
             [ cardDesc, setCardDesc ] = useState(''),
             [ user, setUser ] = useState('');
 
-    const { cards, setCards } = useContext(CardsContext);
-
-    console.log(cards);
-    // console.log(setCards)
-
-    
-    const getUsers = () => fetch(`${'https://jsonplaceholder.typicode.com/users'}`)
-        .then(response => response.json())
-        .then(result => result.map( item => setUsersList(prev => prev.concat(item.name) )));
+    const { users, cards, setCards } = useContext(CardsContext);
 
     function submitHandler(event) {
         event.preventDefault();
         const getDate = () => new Date(Date.now()).toLocaleDateString();
-        const card = { cardTitle, cardDesc, user, date: getDate(), id: uuid(), column: 0 };
+        let card = { cardTitle, cardDesc, user, date: getDate(), id: uuid(), column: 0 };
         alert(JSON.stringify(card));
         setCards(prev=>prev.concat(card));
         console.log(cards);
+        console.log ( localStorage.getItem('cards') );
+        let dataLS=JSON.parse(localStorage.getItem('cards'));
+        console.log('dataLS=',dataLS);
         localStorage.setItem('cards', JSON.stringify(cards));
         setCardTitle('');
         setCardDesc('');
         setUser('');
         setIsOpen(false);
     }
-
-    useEffect( () => getUsers(), []);
 
     return (
         <React.Fragment>
@@ -51,7 +43,7 @@ export default function AddCardModal() {
                             maxLength="27"
                             value={cardTitle}
                             onChange={ev=>setCardTitle(ev.target.value)}
-                            required />
+                            required />     
                     </label>
                     <button className="card-form--close-btn" onClick={()=>setIsOpen(false)} />
                 </span>
@@ -67,7 +59,7 @@ export default function AddCardModal() {
                 <label>User *
                 <select name="userName" id="usersList" value={user} onChange={ev=>setUser(ev.target.value)} required>
                     <option key={uuid()} value="">Select user</option>
-                    {usersList && usersList.map(item => <option key={uuid()} value={item}>{item}</option> )}                    
+                    {users && users.map(item => <option key={uuid()} value={item}>{item}</option> )}                    
                 </select>
                 </label>
                 <input className="card-form--save-btn" type="submit" value="Save"/>

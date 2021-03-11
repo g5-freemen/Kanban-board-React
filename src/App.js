@@ -1,25 +1,34 @@
 import './style/scss/main.scss';
 
-import Header from "./components/Header";
-import Main from "./components/Main";
-import Footer from "./components/Footer";
-import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
+import Main from './components/Main';
+import Footer from './components/Footer';
+import LoadUsersService from './components/services/LoadUsersService';
+import LoadCardsService from './components/services/LoadCardsService'
+import React, { useState, useEffect, useCallback } from 'react';
 
 export const CardsContext = React.createContext();
 
 export default function App() {
   const [ cards, setCards ] = useState([]);
+  const [ users, setUsers ] = useState(null);
 
-  function loadCards() { // Load cards from localStorage
-        let cardsList = JSON.parse( localStorage.getItem('cards') );
-        cardsList && setCards([cardsList]);
-        console.log('cards=',cards);
-  };
+  const getCards = useCallback(async () => {
+    const cards = await LoadCardsService.getCards();
+    setCards(cards);
+ }, []);
 
-  useEffect( () => loadCards(), [] )
+  useEffect( () => getCards(), [] );
+
+  const getUsers = useCallback(async () => {
+    const usersList = await LoadUsersService.getUsers();
+    setUsers(usersList);
+ }, []);
+
+  useEffect( () => getUsers(), [] );
 
   return (
-    <CardsContext.Provider value={{cards,setCards}}>
+    <CardsContext.Provider value={{users, cards, setCards}}>
       <div className="App">
         <Header />
         <Main />
