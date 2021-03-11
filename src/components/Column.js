@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
-import AddCardModal from "./AddCardModal"
+import AddCardModal from "./AddCardModal";
+import Card from './Card'
 import {CardsContext} from '../App';
 
 export default function Column({name}) {
@@ -20,7 +21,7 @@ export default function Column({name}) {
             </div>
             <ul className="board__cards">
                 {cards.length ?
-                    <p>{name === 'To do' && JSON.stringify(cards.filter(item=>item.column===0))}</p>
+                    name === 'To do' && cards.filter(el=>el.column===0).map(item=> <Card data={item} /> ) 
                     : <p>no cards</p>}
             </ul>
             {name === 'To do' && <AddCardModal/>}

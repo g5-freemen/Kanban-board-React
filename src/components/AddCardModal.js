@@ -9,18 +9,14 @@ export default function AddCardModal() {
             [ cardDesc, setCardDesc ] = useState(''),
             [ user, setUser ] = useState('');
 
-    const { users, cards, setCards } = useContext(CardsContext);
+    const { users, setCards } = useContext(CardsContext);
 
     function submitHandler(event) {
         event.preventDefault();
         const getDate = () => new Date(Date.now()).toLocaleDateString();
-        let card = { cardTitle, cardDesc, user, date: getDate(), id: uuid(), column: 0 };
+        let card = { cardTitle, cardDesc, user, date:getDate(), id:uuid(), column:0 };
         alert(JSON.stringify(card));
         setCards(prev=>prev.concat(card));
-        console.log(cards);
-        console.log ( localStorage.getItem('cards') );
-        let dataLS=JSON.parse(localStorage.getItem('cards'));
-        console.log('dataLS=',dataLS);
         setCardTitle('');
         setCardDesc('');
         setUser('');
