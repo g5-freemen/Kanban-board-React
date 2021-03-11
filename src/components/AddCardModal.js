@@ -21,7 +21,6 @@ export default function AddCardModal() {
         console.log ( localStorage.getItem('cards') );
         let dataLS=JSON.parse(localStorage.getItem('cards'));
         console.log('dataLS=',dataLS);
-        localStorage.setItem('cards', JSON.stringify(cards));
         setCardTitle('');
         setCardDesc('');
         setUser('');

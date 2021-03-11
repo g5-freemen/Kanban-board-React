@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AddCardModal from "./AddCardModal"
 import {CardsContext} from '../App';
 
@@ -9,6 +9,8 @@ export default function Column({name}) {
 
     const { cards } = useContext(CardsContext);
 
+    useEffect(()=> localStorage.setItem('cards', JSON.stringify(cards)), [cards])
+
     return (
         <div className={containerName}>
             <div className="board__title-bar">
@@ -17,7 +19,9 @@ export default function Column({name}) {
                 <div className="board--delBtn"></div>
             </div>
             <ul className="board__cards">
-                {cards.length ? <p>{JSON.stringify(cards)}</p> : <p>no cards</p>}
+                {cards.length ?
+                    <p>{name === 'To do' && JSON.stringify(cards.filter(item=>item.column===0))}</p>
+                    : <p>no cards</p>}
             </ul>
             {name === 'To do' && <AddCardModal/>}
         </div> 
