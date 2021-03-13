@@ -6,7 +6,7 @@ import {CardsContext} from '../App';
 export default function CardModal() {
     const { users, cards, setCards, modalState, setModalState } = useContext(CardsContext);
 
-    const   [ card, setCard ] = useState((modalState[1] && cards.filter(item=>item.id===modalState[1])[0]) || {} ),
+    const   [ card ] = useState((modalState[1] && cards.find(item=>item.id===modalState[1])) || {} ),
             [ cardTitle, setCardTitle ] = useState((modalState[1] && card.cardTitle) || ''),
             [ cardDesc, setCardDesc ] = useState((modalState[1] && card.cardDesc) ||  ''),
             [ user, setUser ] = useState((modalState[1] && card.user) || '');
@@ -14,7 +14,7 @@ export default function CardModal() {
     function submitHandler(event) {
         event.preventDefault();
         if (modalState[0]==='add') {
-            const getDate = () => new Date(Date.now()).toLocaleDateString();
+            const getDate = () => new Date().toLocaleString().slice(0,-3);
             let newCard = { cardTitle, cardDesc, user, date:getDate(), id:uuid(), column:0 };
             setCards(prev=>prev.concat(newCard));
         } else {
@@ -38,7 +38,7 @@ export default function CardModal() {
     return (
         <div className="modal-window">
             <form className="card-form" onSubmit={submitHandler}>
-            {modalState[1] && <span>Edit Card</span>}
+            {modalState[1] && <span className='card--edit'>Edit Card</span>}
             <span className="card-form--top-field">
                     <label>Title *
                     <input  className="card-form--title"

@@ -1,4 +1,5 @@
 async function getUsers() {
+    console.log('getUsers')
     try {
         return getCachedUsers();
     } catch (e) {
