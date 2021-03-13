@@ -4,10 +4,14 @@
     background-color: $secondBGColor;
     color: $whiteBGColor;
     text-align: center;
-    padding: 0.3rem;
+    padding: .3rem;
     border-radius: $borderRadiusSmall;
     z-index: 1;
-    font-size: 0.7rem;
+    font-size: .7rem;
+}
+
+.board--delBtn:hover + .board--delBtn-tooltip {
+    visibility: visible;
 }
 
 .show {
@@ -15,7 +19,7 @@
 }
 
 .card--move-btn, .card--delete-btn {
-    transition: all 0.3s;
+    transition: all .3s;
 }
 
 .card--move-btn:hover, .card--delete-btn:hover {

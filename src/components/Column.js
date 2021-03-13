@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 import uuid from 'react-uuid';
 
-import CardModal from "./CardModal";
 import Card from './Card';
 import ClearColumn from './ClearColumn';
 import {CardsContext} from '../App';
@@ -15,7 +14,7 @@ export default function Column({name}) {
     if (name==='In Progress') column=1
     else if (name==='Done') column=2;
 
-    const { cards, setCards } = useContext(CardsContext);
+    const { cards, setModalState } = useContext(CardsContext);
 
     let cardsCounter = cards.filter(el=>el.column===column).length;
 
@@ -38,7 +37,9 @@ export default function Column({name}) {
                     cards.filter(el=>el.column===column).map(item=> <Card key={uuid()} data={item}/> ) 
                 }
             </ul>
-            {name === 'To do' && <CardModal />}
+            {name === 'To do' && 
+                <button className="board__add-card-btn" onClick={()=>setModalState(['add'])}> Add new </button>
+            }
         </div> 
     )
 }

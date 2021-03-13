@@ -92,13 +92,13 @@
     height: $normalBtnSize;
     border-radius: 50%;
     background: $smallItemsColor;
-    visibility: hidden;
+    // visibility: hidden;
 }
 
 .board--delBtn {
     @include flexible(center, center, row, wrap);
     @include noBorderCursor;
-    visibility: hidden;
+    // visibility: hidden;
     padding: 0;
     width: $normalBtnSize;
     height: $normalBtnSize;
@@ -118,6 +118,7 @@
     bottom: 0;
     width: 100%;
     background:  rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
 .modal-window, .modal-window--confirm {
@@ -235,12 +236,19 @@
 .card--user, .card--edit-user, .card--author {
     @include noBorderCursor;
     position: absolute;
-    margin-top: -$bigPadding*0.85;
+    margin-top: -$smallPadding*1.7;
     padding: $smallPadding/3 $smallPadding;
     background-color: $userColor;
     border-radius: $borderRadiusSmall;
     font-size: 0.6rem;
     cursor: default;
+}
+
+.card--user-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 99%;
 }
 
 .card--edit-bottom {

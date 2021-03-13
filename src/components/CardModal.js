@@ -1,43 +1,44 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import uuid from 'react-uuid';
 
 import {CardsContext} from '../App';
 
-export default function CardModal({id, setEditCard}) {
-    const { users, cards, setCards } = useContext(CardsContext);
+export default function CardModal() {
+    const { users, cards, setCards, modalState, setModalState } = useContext(CardsContext);
 
-    const   [ card, setCard ] = useState((id && cards.filter(item=>item.id===id)[0]) || {}),
-            [ isOpen, setIsOpen ] = useState((id && true) || false),
-            [ cardTitle, setCardTitle ] = useState((id && card.cardTitle) || ''),
-            [ cardDesc, setCardDesc ] = useState((id && card.cardDesc) || ''),
-            [ user, setUser ] = useState((id && card.user) || '');
-
-console.log('card=',card);
+    const   [ card, setCard ] = useState((modalState[1] && cards.filter(item=>item.id===modalState[1])[0]) || {} ),
+            [ cardTitle, setCardTitle ] = useState((modalState[1] && card.cardTitle) || ''),
+            [ cardDesc, setCardDesc ] = useState((modalState[1] && card.cardDesc) ||  ''),
+            [ user, setUser ] = useState((modalState[1] && card.user) || '');
 
     function submitHandler(event) {
         event.preventDefault();
-        const getDate = () => new Date(Date.now()).toLocaleDateString();
-        let newCard = { cardTitle, cardDesc, user, date:getDate(), id:uuid(), column:0 };
-        if (!id) setCards(prev=>prev.concat(newCard));
+        if (modalState[0]==='add') {
+            const getDate = () => new Date(Date.now()).toLocaleDateString();
+            let newCard = { cardTitle, cardDesc, user, date:getDate(), id:uuid(), column:0 };
+            setCards(prev=>prev.concat(newCard));
+        } else {
+            let editCard = { cardTitle, cardDesc, user, date:card.date, id:card.id, column:card.column };
+            const prevState = [...cards];
+            const cardToReplace = prevState.find(item => item.id === modalState[1]);
+            prevState.splice(prevState.indexOf(cardToReplace), 1, editCard);
+            setCards(prevState);
+        }
         setCardTitle('');
         setCardDesc('');
         setUser('');
-        setIsOpen(false);
+        setModalState(null);
     }
 
-    const handleCloseModal = () => {
-        setIsOpen(false);
-        if (id) {setEditCard(false)};
+    function handleCloseModal(ev) {
+        ev.preventDefault();
+        setModalState(null);
     }
 
     return (
-        <React.Fragment>
-        {!id && <button className="board__add-card-btn" onClick={()=>setIsOpen(true)}> Add new </button> }
-
-        {(isOpen) &&
         <div className="modal-window">
             <form className="card-form" onSubmit={submitHandler}>
-            {id && <span>Edit Card</span>}
+            {modalState[1] && <span>Edit Card</span>}
             <span className="card-form--top-field">
                     <label>Title *
                     <input  className="card-form--title"
@@ -68,7 +69,5 @@ console.log('card=',card);
                 <input className="card-form--save-btn" type="submit" value="Save"/>
             </form>    
         </div>
-        }
-        </React.Fragment>
     )
 }
