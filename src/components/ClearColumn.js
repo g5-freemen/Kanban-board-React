@@ -23,7 +23,8 @@ export default function ClearColumn({column}) {
             onMouseOver={ ev => {
                 setPosLeft(ev.clientX);
                 setPosTop(ev.clientY);
-                setMoveLeft(document.querySelector('.board--delBtn-tooltip').clientWidth)} } />
+                setMoveLeft(document.querySelector('.board--delBtn-tooltip').clientWidth);
+            } } />
         <span className="board--delBtn-tooltip" style={styles.pos}> Delete all cards </span>
 
         {isOpen &&

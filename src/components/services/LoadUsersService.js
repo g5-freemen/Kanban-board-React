@@ -1,5 +1,4 @@
 async function getUsers() {
-    console.log('getUsers')
     try {
         return getCachedUsers();
     } catch (e) {
@@ -15,8 +14,9 @@ async function getUsers() {
 function getCachedUsers() {
     const cachedData = localStorage.getItem('users');
     
-    if (cachedData) return JSON.parse(cachedData)
-    else throw new Error('No cached users');
+    if (!cachedData) throw new Error('No cached users');
+
+    return JSON.parse(cachedData)
 }
 
 export default { getUsers }
