@@ -4,7 +4,7 @@ async function getUsers() {
     } catch (e) {
         const response = await fetch('https://jsonplaceholder.typicode.com/users');
         const data = await response.json();
-        const result = data.map(el => el.name);
+        const result = await data.map(el => el.name);
         localStorage.setItem('users', JSON.stringify(result));
 
         return result;
@@ -14,7 +14,9 @@ async function getUsers() {
 function getCachedUsers() {
     const cachedData = localStorage.getItem('users');
     
-    if (!cachedData) throw new Error('No cached users');
+    if (!cachedData || cachedData === 'null') {
+        throw new Error('No cached users');
+    }
 
     return JSON.parse(cachedData)
 }

@@ -104,7 +104,7 @@
     height: $normalBtnSize;
     background: url('../../../img/delete-btn.svg') no-repeat;
     background-size: contain;
-    opacity: $opacityValue;
+    opacity: .5;
     border-radius: 50%;
 }
 
@@ -326,7 +326,7 @@
     background: url('../../../img/delete-btn.svg') no-repeat;
     background-size: contain;
     background-color: $whiteBGColor;
-    opacity: $opacityValue;
+    opacity: .5;
 }
 
 .card--move-btn {
@@ -352,7 +352,7 @@
     background: url('../../../img/check.svg');
     background-size: $smallBtnSize;
     background-repeat: no-repeat;
-    opacity: $opacityValue;
+    opacity: .5;
     transition: all 0.6s;
 }
 
@@ -390,7 +390,7 @@ label {
     height: $normalBtnSize;
     background: url('../../../img/delete-btn.svg') no-repeat;
     background-size: contain;
-    opacity: $opacityValue;
+    opacity: .5;
 }
 
 .card-form--title {
